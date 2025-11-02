@@ -1,0 +1,409 @@
+Prompt pour l'IA (Cursor) :
+
+Bonjour. Tu vas agir en tant qu'architecte logiciel et développeur senior Laravel. Ta mission est de générer l'intégralité du code pour un site web vitrine pour une nouvelle université (IESC, basée sur l'image fournie). Le site doit être moderne, performant et facile à administrer.
+
+Nous utiliserons Laravel 11 avec Filament 3 pour le panel d'administration. L'objectif principal est de rendre le site entièrement administrable, y compris les paramètres généraux (logo, contact) et le contenu de la page d'accueil.
+
+La structure de navigation doit s'inspirer de pantheonsorbonne.fr (Université, Formation, Recherche, International, Vie étudiante, Inscription) mais en version simplifiée, car de nombreuses sections seront de simples pages de contenu au début.
+
+Suis ce plan d'action étape par étape et génère tout le code nécessaire.
+
+Étape 1 : Initialisation du Projet et Stack Technique
+Initialise le projet Laravel 11 :
+
+Bash
+
+laravel new universite-iesc
+cd universite-iesc
+Configure la base de données :
+
+Utilise SQLite pour le développement. Crée database/database.sqlite.
+
+Mets à jour le .env :
+
+Extrait de code
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/chemin/absolu/vers/database/database.sqlite
+APP_NAME="IESC Université"
+APP_URL=http://iesc.test
+Installe les paquets Composer :
+
+Bash
+
+# Panel d'administration Filament
+composer require filament/filament:"^3.2" -W
+php artisan filament:install --panels
+
+# Gestion des uploads (diplômes, logo, etc.)
+composer require "spatie/laravel-medialibrary:^11.0"
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+
+# Plugin Filament pour Spatie MediaLibrary
+composer require filament/spatie-laravel-medialibrary-plugin:"^3.2"
+
+# Génération de Sitemap
+composer require spatie/laravel-sitemap
+
+# Gestion centralisée des paramètres (logo, email, etc.)
+composer require spatie/laravel-settings
+php artisan vendor:publish --provider="Spatie\Settings\SettingsServiceProvider" --tag="migrations"
+Exécute les migrations initiales : php artisan migrate
+
+Crée l'utilisateur Admin : php artisan make:filament-user (Remplis les informations : Admin, admin@iesc.com, motdepasse)
+
+Configure le Frontend (Vite) :
+
+Assure-toi que Tailwind CSS est installé (c'est le cas par défaut avec Laravel 11).
+
+npm install
+
+Étape 2 : Settings et Paramètres Généraux
+Nous allons utiliser spatie/laravel-settings pour gérer les infos globales du site.
+
+Crée la classe de Settings :
+
+php artisan make:setting SiteSettings
+
+Ouvre app/Settings/SiteSettings.php et remplis-le :
+
+PHP
+
+namespace App\Settings;
+
+use Spatie\Settings\Settings;
+
+class SiteSettings extends Settings
+{
+    public string $site_name;
+    public ?string $site_logo_path; // Chemin vers le logo
+    public ?string $site_favicon_path; // Chemin vers le favicon
+    public string $contact_email; // (Email de l'image)
+    public string $contact_phone; // (Téléphone de l'image)
+    public string $contact_address; // (Adresse de l'image)
+    public ?string $social_facebook_url;
+    public ?string $social_linkedin_url;
+    public ?string $footer_text;
+
+    public static function group(): string
+    {
+        return 'general';
+    }
+}
+Crée la page de gestion dans Filament :
+
+php artisan make:filament-page ManageSiteSettings --panel=admin
+
+Configure ManageSiteSettings.php pour qu'il utilise notre classe SiteSettings :
+
+PHP
+
+namespace App\Filament\Pages;
+
+use App\Settings\SiteSettings;
+use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Pages\SettingsPage;
+
+class ManageSiteSettings extends SettingsPage
+{
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static string $settings = SiteSettings::class;
+    protected static ?string $navigationGroup = 'Administration';
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Section::make('Identité du Site')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('site_name')
+                            ->label('Nom du Site')
+                            ->required(),
+                        FileUpload::make('site_logo_path')
+                            ->label('Logo (Header)')
+                            ->disk('public')
+                            ->directory('settings')
+                            ->image(),
+                        FileUpload::make('site_favicon_path')
+                            ->label('Favicon')
+                            ->disk('public')
+                            ->directory('settings')
+                            ->image(),
+                    ]),
+                Section::make('Informations de Contact')
+                    ->description('Basé sur les infos du flyer.')
+                    ->schema([
+                        TextInput::make('contact_email')
+                            ->label('Email de contact')
+                            ->email()
+                            ->default('institutenseignementsupérieur@gmail.com'),
+                        TextInput::make('contact_phone')
+                            ->label('Téléphone')
+                            ->default('+242 06 541 98 91 / 05 022 64 08'),
+                        Textarea::make('contact_address')
+                            ->label('Adresse Postale')
+                            ->default('112, Avenue de France Poto-poto'),
+                    ]),
+                Section::make('Réseaux Sociaux & Pied de Page')
+                    ->schema([
+                        TextInput::make('social_facebook_url')->label('URL Facebook')->url(),
+                        TextInput::make('social_linkedin_url')->label('URL LinkedIn')->url(),
+                        Textarea::make('footer_text')->label('Texte du pied de page'),
+                    ]),
+            ]);
+    }
+}
+Étape 3 : Modèles de Données et Migrations
+Crée les modèles et migrations pour le contenu.
+
+Modèle Program (Filière/Formation) :
+
+php artisan make:model Program -m
+
+Migration : string('title'), string('slug')->unique(), string('faculty') (ex: "Génie Informatique"), longText('description'), longText('opportunities') (Débouchés), boolean('is_active')->default(true), string('meta_title')->nullable(), text('meta_description')->nullable().
+
+Modèle : Implémente HasMedia et InteractsWithMedia de Spatie.
+
+Modèle AdmissionApplication (Candidature) :
+
+php artisan make:model AdmissionApplication -m
+
+Migration : foreignId('program_id')->constrained('programs'), string('first_name'), string('last_name'), string('email'), string('phone'), date('birth_date'), string('status')->default('pending') (pending, approved, rejected).
+
+Modèle : Implémente HasMedia et InteractsWithMedia (pour les diplômes, acte de naissance).
+
+Modèle CareerOpening (Carrière/Stage) :
+
+php artisan make:model CareerOpening -m
+
+Migration : string('title'), string('type') (enum: 'stage', 'emploi'), text('description'), string('location')->nullable(), boolean('is_active')->default(true).
+
+Modèle StaticPage (Pour "À Propos", "Recherche", etc.) :
+
+php artisan make:model StaticPage -m
+
+Migration : string('title'), string('slug')->unique(), longText('content'), string('meta_title')->nullable(), text('meta_description')->nullable().
+
+Modèle HomepageSection (Pour la page d'accueil custom) :
+
+php artisan make:model HomepageSection -m
+
+Migration : string('key')->unique() (ex: "hero_title"), string('type')->default('text') (text, textarea, image), longText('content')->nullable().
+
+Exécute php artisan migrate après avoir créé ces migrations.
+
+Étape 4 : Panel d'Administration (Filament Resources)
+Crée les "Resources" Filament pour gérer le contenu.
+
+Resource ProgramResource :
+
+php artisan make:filament-resource Program --navigation-group="Contenu du Site"
+
+Form : TextInput::make('title')->required(), TextInput::make('slug')->required(), Select::make('faculty')->options([...]) (remplis avec les filières de l'image), RichEditor::make('description'), RichEditor::make('opportunities'), SpatieMediaLibraryFileUpload::make('featured_image')->collection('programs'), Toggle::make('is_active'), Section::make('SEO')->schema([TextInput::make('meta_title'), Textarea::make('meta_description')]).
+
+Resource AdmissionApplicationResource :
+
+php artisan make:filament-resource AdmissionApplication --navigation-group="Admissions"
+
+Désactive la création (canCreate() -> false).
+
+Table : TextColumn::make('full_name'), TextColumn::make('program.title'), SelectColumn::make('status').
+
+Form (pour la vue) : Rends les champs disabled(). Ajoute SpatieMediaLibraryFileUpload::make('bac_diploma')->collection('bac_diploma')->disabled(), SpatieMediaLibraryFileUpload::make('birth_certificate')->collection('birth_certificate')->disabled().
+
+Resource StaticPageResource :
+
+php artisan make:filament-resource StaticPage --navigation-group="Contenu du Site"
+
+Form : TextInput::make('title'), TextInput::make('slug'), RichEditor::make('content'), Section::make('SEO').
+
+Resource CareerOpeningResource :
+
+php artisan make:filament-resource CareerOpening --navigation-group="Contenu du Site"
+
+Form : TextInput::make('title'), Select::make('type')->options(['stage' => 'Stage', 'emploi' => 'Emploi']), RichEditor::make('description'), Toggle::make('is_active').
+
+Page de Gestion "Page d'Accueil" :
+
+php artisan make:filament-page ManageHomepage --navigation-group="Contenu du Site"
+
+Utilise le modèle HomepageSection pour créer un formulaire dynamique.
+
+Form : TextInput::make('hero_title')->default(HomepageSection::firstOrCreate(['key' => 'hero_title'])->content), Textarea::make('hero_subtitle')->default(...), TextInput::make('info_section_title')->default(...), RichEditor::make('info_section_content')->default(...), FileUpload::make('hero_background_image')->default(...).
+
+Méthode save() : Itère sur $this->form->getState() et utilise HomepageSection::updateOrCreate(['key' => $key], ['content' => $value]).
+
+Étape 5 : Routes et Contrôleurs (Frontend)
+Crée les contrôleurs :
+
+php artisan make:controller Public\\HomeController
+
+php artisan make:controller Public\\ProgramController
+
+php artisan make:controller Public\\AdmissionController
+
+php artisan make:controller Public\\PageController
+
+php artisan make:controller Public\\SitemapController
+
+Définis les routes (web.php) :
+
+PHP
+
+use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\ProgramController;
+use App\Http\Controllers\Public\AdmissionController;
+use App\Http\Controllers\Public\PageController;
+use App\Http\Controllers\Public\SitemapController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Menu principal (simplifié)
+Route::get('/universite', [PageController::class, 'show'])->name('page.about'); // Slug 'a-propos'
+Route::get('/formations', [ProgramController::class, 'index'])->name('programs.index');
+Route::get('/formations/{slug}', [ProgramController::class, 'show'])->name('programs.show');
+Route::get('/recherche', [PageController::class, 'show'])->name('page.research'); // Slug 'recherche'
+Route::get('/international', [PageController::class, 'show'])->name('page.international'); // Slug 'international'
+Route::get('/vie-etudiante', [PageController::class, 'show'])->name('page.student-life'); // Slug 'vie-etudiante'
+
+// Inscription
+Route::get('/inscription', [AdmissionController::class, 'create'])->name('admission.create');
+Route::post('/inscription', [AdmissionController::class, 'store'])->name('admission.store');
+
+// Sitemap & Robots
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+// Crée public/robots.txt
+Étape 6 : Logique Backend (Contrôleurs, Mails, Providers)
+ViewServiceProvider :
+
+php artisan make:provider ViewServiceProvider
+
+Enregistre-le dans config/app.php.
+
+Dans la méthode boot() :
+
+PHP
+
+use App\Settings\SiteSettings;
+use Illuminate\Support\Facades\View;
+
+public function boot(): void
+{
+    // Partage les settings avec toutes les vues
+    View::share('siteSettings', app(SiteSettings::class));
+}
+AdmissionController (store method) :
+
+Crée un Form Request : php artisan make:request StoreAdmissionRequest
+
+Définis les règles de validation (required, email, date, file, mimes:pdf,jpg,png, max:2048).
+
+Logique du store(StoreAdmissionRequest $request) :
+
+PHP
+
+$application = AdmissionApplication::create($request->validated());
+
+// Gérer les uploads
+if ($request->hasFile('bac_diploma')) {
+    $application->addMediaFromRequest('bac_diploma')->toMediaCollection('bac_diploma');
+}
+if ($request->hasFile('birth_certificate')) {
+    $application->addMediaFromRequest('birth_certificate')->toMediaCollection('birth_certificate');
+}
+
+// Envoyer les emails
+Mail::to($application->email)->send(new AdmissionConfirmation($application));
+Mail::to(app(SiteSettings::class)->contact_email)->send(new NewAdmissionNotification($application));
+
+return redirect()->route('admission.create')->with('success', 'Votre candidature a été envoyée !');
+Mailables :
+
+php artisan make:mail AdmissionConfirmation --markdown=emails.admission-confirmation
+
+php artisan make:mail NewAdmissionNotification --markdown=emails.new-admission-notification
+
+Crée les vues Blade correspondantes (resources/views/emails/) avec un message de confirmation pour l'étudiant et une notification pour l'admin.
+
+SitemapController :
+
+Implémente la logique de spatie/laravel-sitemap pour générer le sitemap à la volée ou via une commande.
+
+Étape 7 : Configuration Finale (Mail, .env, SEO)
+Configuration Email (.env) :
+
+Demande à l'utilisateur de remplir ces variables.
+
+Utilise Mailtrap.io ou Mailpit pour les tests locaux.
+
+Exemple pour Mailpit :
+
+Extrait de code
+
+MAIL_MAILER=smtp
+MAIL_HOST=127.0.0.1
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="ne-pas-repondre@iesc.com"
+MAIL_FROM_NAME="${APP_NAME}"
+Fichier robots.txt :
+
+Crée public/robots.txt :
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: {{ route('sitemap') }}
+Étape 8 : Vues (Blade & Tailwind)
+Crée les vues Blade avec Tailwind CSS.
+
+Layout Principal (layouts/app.blade.php) :
+
+<head> :
+
+<title>@yield('title', $siteSettings->site_name)</title>
+
+<meta name="description" content="@yield('description', 'Bienvenue...')">
+
+<link rel="icon" href="{{ Storage::url($siteSettings->site_favicon_path) }}">
+
+Navbar :
+
+Logo : <img src="{{ Storage::url($siteSettings->site_logo_path) }}" alt="{{ $siteSettings->site_name }}">
+
+Liens du menu (Université, Formation, Recherche, etc.) pointant vers les routes nommées.
+
+Bouton CTA "Inscription".
+
+Flash Message : @if (session('success')) <div class="alert-success">{{ session('success') }}</div> @endif
+
+@yield('content')
+
+Footer :
+
+Affiche $siteSettings->contact_email, $siteSettings->contact_phone, $siteSettings->contact_address, $siteSettings->footer_text.
+
+Icônes/liens pour $siteSettings->social_facebook_url, etc.
+
+Toutes les autres vues (home, programs.index, programs.show, admission.create, page.show) :
+
+Utilise @extends('layouts.app').
+
+Pour programs.show et page.show, utilise :
+
+@section('title', $program->meta_title ?? $program->title)
+
+@section('description', $program->meta_description)
+
+Pour admission.create, n'oublie pas enctype="multipart/form-data" sur le tag <form>.
+
+Merci de générer le code complet pour toutes ces étapes, en fournissant la structure des fichiers et le contenu de chaque fichier (modèles, migrations, settings, contrôleurs, vues Blade, et classes Filament).
