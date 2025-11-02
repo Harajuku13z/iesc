@@ -4,30 +4,47 @@
 /* Import Harvard Style */
 @import './harvard-style.css';
 
-/* IMPORTANT: Forcer la visibilité du menu */
-.navbar {
-    background: #fff !important;
-    border-bottom: 1px solid #e5e5e5 !important;
-}
-
-.navbar-nav .nav-link {
-    color: #000 !important;
-    font-weight: 400 !important;
-    font-size: 0.9375rem !important;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #9e5a59 !important;
-}
-
-.navbar-brand {
-    color: #000 !important;
-    font-weight: 600 !important;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* IMPORTANT: Styles navbar APRÈS Tailwind pour override */
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+    padding: 1rem 0 !important;
+}
+
+.navbar-brand {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    font-size: 1.5rem !important;
+}
+
+.navbar-nav {
+    display: flex !important;
+}
+
+.navbar-nav .nav-link {
+    color: #000000 !important;
+    font-weight: 400 !important;
+    font-size: 0.9375rem !important;
+    padding: 0.5rem 1rem !important;
+    display: block !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.fw-semibold {
+    color: #9e5a59 !important;
+}
+
+.navbar-toggler {
+    border: 1px solid #000 !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
 
 /* Custom site styles */
 :root {
