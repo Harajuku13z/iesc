@@ -189,8 +189,8 @@
     </div>
 </section>
 
-<!-- Events & News Section -->
-<section class="py-5 bg-white">
+<!-- Events & News Section - Harvard Card Style -->
+<section class="py-5" style="background: #f8f8f8;">
     <div class="container py-5">
         <div class="row mb-5">
             <div class="col">
@@ -204,76 +204,89 @@
         </div>
         
         <div class="row g-4">
-            <!-- Events Column -->
-            <div class="col-lg-6">
-                <h3 class="h4 mb-4" style="font-weight: 400;">
-                    <i class="bi bi-calendar-event text-primary me-2"></i>
-                    Événements à venir
-                </h3>
-                
-                @forelse($events->take(3) as $event)
-                    <div class="border-start border-3 border-primary ps-3 mb-4">
-                        <div class="d-flex gap-2 align-items-center mb-2">
-                            <span class="badge bg-primary" style="border-radius: 0; font-size: 0.75rem;">
-                                {{ $event->starts_at->format('d M Y') }}
-                            </span>
-                            <span class="text-muted small">{{ $event->starts_at->format('H:i') }}</span>
+            <!-- Events Cards -->
+            @foreach($events->take(3) as $event)
+                <div class="col-md-6 col-lg-4">
+                    <article class="bg-white border h-100" style="border-color: #e0e0e0 !important; transition: all 0.3s;">
+                        <div class="p-4">
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <div class="text-center" style="min-width: 60px;">
+                                    <div class="fw-bold" style="font-size: 2rem; line-height: 1; color: var(--brand-primary);">
+                                        {{ $event->starts_at->format('d') }}
+                                    </div>
+                                    <div class="text-uppercase small text-muted">
+                                        {{ $event->starts_at->format('M') }}
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="badge bg-warning text-dark mb-2" style="border-radius: 0; font-size: 0.7rem; font-weight: 500;">
+                                        ÉVÉNEMENT
+                                    </div>
+                                    <h3 class="h5 mb-2" style="font-weight: 400; line-height: 1.3;">
+                                        {{ $event->title }}
+                                    </h3>
+                                    <p class="text-muted small mb-2">
+                                        <i class="bi bi-clock me-1"></i>
+                                        {{ $event->starts_at->format('H:i') }}
+                                        <span class="mx-2">•</span>
+                                        <i class="bi bi-geo-alt me-1"></i>
+                                        {{ Str::limit($event->location, 25) }}
+                                    </p>
+                                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">
+                                        {{ Str::limit(strip_tags($event->description), 100) }}
+                                    </p>
+                                    <a href="{{ route('events.index') }}" 
+                                       class="text-decoration-none d-inline-flex align-items-center gap-2"
+                                       style="color: var(--brand-primary); font-weight: 500; font-size: 0.875rem;">
+                                        En savoir plus
+                                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <h4 class="h6 mb-2" style="font-weight: 500;">
-                            {{ $event->title }}
-                        </h4>
-                        <p class="text-muted small mb-2">
-                            <i class="bi bi-geo-alt me-1"></i>
-                            {{ $event->location }}
-                        </p>
-                        <p class="text-muted small mb-2">
-                            {{ Str::limit(strip_tags($event->description), 100) }}
-                        </p>
-                        <a href="{{ route('events.index') }}" class="small" style="color: var(--brand-primary); text-decoration: none; font-weight: 500;">
-                            En savoir plus →
-                        </a>
-                    </div>
-                @empty
-                    <p class="text-muted">Aucun événement à venir pour le moment.</p>
-                @endforelse
-                
-                @if($events->count() > 3)
-                    <a href="{{ route('events.index') }}" class="btn btn-outline-primary btn-sm mt-3" style="border-radius: 0;">
-                        Voir tous les événements
-                    </a>
-                @endif
-            </div>
+                    </article>
+                </div>
+            @endforeach
             
-            <!-- News Column -->
-            <div class="col-lg-6">
-                <h3 class="h4 mb-4" style="font-weight: 400;">
-                    <i class="bi bi-newspaper text-primary me-2"></i>
-                    Dernières actualités
-                </h3>
-                
-                @forelse($news as $article)
-                    <div class="border-bottom pb-4 mb-4">
-                        <div class="text-muted small mb-2">
-                            {{ $article->published_at?->format('d M Y') ?? 'Récent' }}
+            <!-- News Cards -->
+            @foreach($news as $article)
+                <div class="col-md-6 col-lg-4">
+                    <article class="bg-white border h-100" style="border-color: #e0e0e0 !important; transition: all 0.3s;">
+                        <div class="p-4">
+                            <div class="badge bg-primary text-white mb-3" style="border-radius: 0; font-size: 0.7rem; font-weight: 500;">
+                                ACTUALITÉ
+                            </div>
+                            <div class="text-muted small mb-2">
+                                {{ $article->published_at?->format('d M Y') ?? 'Récent' }}
+                            </div>
+                            <h3 class="h5 mb-3" style="font-weight: 400; line-height: 1.3;">
+                                {{ $article->title }}
+                            </h3>
+                            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">
+                                {{ Str::limit(strip_tags($article->content), 120) }}
+                            </p>
+                            <a href="{{ route('news.index') }}" 
+                               class="text-decoration-none d-inline-flex align-items-center gap-2"
+                               style="color: var(--brand-primary); font-weight: 500; font-size: 0.875rem;">
+                                Lire la suite
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                </svg>
+                            </a>
                         </div>
-                        <h4 class="h6 mb-2" style="font-weight: 500;">
-                            {{ $article->title }}
-                        </h4>
-                        <p class="text-muted small mb-2">
-                            {{ Str::limit(strip_tags($article->content), 120) }}
-                        </p>
-                        <a href="{{ route('news.index') }}" class="small" style="color: var(--brand-primary); text-decoration: none; font-weight: 500;">
-                            Lire la suite →
-                        </a>
-                    </div>
-                @empty
-                    <p class="text-muted">Aucune actualité pour le moment.</p>
-                @endforelse
-                
-                <a href="{{ route('news.index') }}" class="btn btn-outline-primary btn-sm mt-3" style="border-radius: 0;">
-                    Toutes les actualités
-                </a>
-            </div>
+                    </article>
+                </div>
+            @endforeach
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ route('news.index') }}" 
+               class="btn btn-lg px-5"
+               style="background: var(--brand-primary); color: #fff; border: none; border-radius: 0; font-weight: 500; font-size: 0.9375rem;">
+                Voir toutes les actualités et événements
+            </a>
         </div>
     </div>
 </section>

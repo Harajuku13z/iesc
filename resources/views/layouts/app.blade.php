@@ -100,48 +100,76 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Top Navbar - Harvard Style -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <!-- Top Navbar - Harvard Style VISIBLE -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top" style="border-color: #e5e5e5 !important;">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand fw-semibold" href="/" style="color: #000 !important; font-size: 1.5rem;">
                 @if(!empty($siteSettings?->site_logo_path))
-                    <img src="{{ Storage::url($siteSettings->site_logo_path) }}" alt="IESC">
+                    <img src="{{ Storage::url($siteSettings->site_logo_path) }}" alt="IESC" style="height: 45px;">
                 @else
                     IESC
                 @endif
             </a>
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" style="border: 1px solid #000 !important;">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/">Accueil</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'fw-semibold' : '' }}" 
+                           href="/" 
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Accueil
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('programs.*') ? 'active' : '' }}" href="{{ route('programs.index') }}">Formations</a>
+                        <a class="nav-link {{ request()->routeIs('programs.*') ? 'fw-semibold' : '' }}" 
+                           href="{{ route('programs.index') }}"
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Formations
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admissions.*') ? 'active' : '' }}" href="{{ route('admissions.info') }}">Admission</a>
+                        <a class="nav-link {{ request()->routeIs('admissions.*') ? 'fw-semibold' : '' }}" 
+                           href="{{ route('admissions.info') }}"
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Admission
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('careers') ? 'active' : '' }}" href="{{ route('careers') }}">Carrières</a>
+                        <a class="nav-link {{ request()->routeIs('careers') ? 'fw-semibold' : '' }}" 
+                           href="{{ route('careers') }}"
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Carrières
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('news.*') ? 'active' : '' }}" href="{{ route('news.index') }}">Actualités</a>
+                        <a class="nav-link {{ request()->routeIs('news.*') ? 'fw-semibold' : '' }}" 
+                           href="{{ route('news.index') }}"
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Actualités
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'fw-semibold' : '' }}" 
+                           href="{{ route('contact') }}"
+                           style="color: #000 !important; font-size: 0.9375rem;">
+                            Contact
+                        </a>
                     </li>
-                    <li class="nav-item ms-lg-2">
-                        <a href="{{ route('student.portal') }}" class="btn btn-sm btn-outline-dark">
+                    <li class="nav-item ms-lg-3">
+                        <a href="{{ route('student.portal') }}" 
+                           class="btn btn-sm btn-outline-dark"
+                           style="border-radius: 0; font-size: 0.875rem; border-width: 2px; color: #000 !important;">
                             Espace Étudiant
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="{{ route('admission.create') }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admission.create') }}" 
+                           class="btn btn-sm text-white"
+                           style="background: var(--brand-primary, #9e5a59) !important; border: none; border-radius: 0; font-size: 0.875rem;">
                             S'inscrire
                         </a>
                     </li>
