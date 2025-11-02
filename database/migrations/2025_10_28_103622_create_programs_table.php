@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('faculty');
-            $table->longText('description');
-            $table->longText('opportunities');
+            $table->string('faculty')->nullable();
+            $table->longText('description')->nullable();
+            $table->longText('opportunities')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
