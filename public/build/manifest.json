@@ -1,4 +1,9 @@
 {
+  "_bootstrap.bundle.min-Cs96l2pK.js": {
+    "file": "assets/bootstrap.bundle.min-Cs96l2pK.js",
+    "name": "bootstrap.bundle.min",
+    "isDynamicEntry": true
+  },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
     "file": "assets/bootstrap-icons-BeopsB42.woff",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
@@ -13,10 +18,13 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DBbzq49B.js",
+    "file": "assets/app-DjpKYGfg.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
+    "dynamicImports": [
+      "_bootstrap.bundle.min-Cs96l2pK.js"
+    ],
     "css": [
       "assets/app-BI69yjDX.css"
     ],
