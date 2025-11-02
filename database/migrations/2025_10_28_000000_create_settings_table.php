@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('group');
             $table->string('name');
             $table->longText('payload');
+            $table->boolean('locked')->default(false);
             $table->timestamps();
             
             $table->unique(['group', 'name']);

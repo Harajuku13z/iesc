@@ -37,17 +37,3 @@ return new class extends Migration
         });
     }
 };
-            $table->string('type');
-            $table->string('title')->nullable();
-            $table->text('subtitle')->nullable();
-            $table->text('content')->nullable();
-            $table->string('image')->nullable();
-            $table->string('background_color')->nullable();
-            $table->string('text_color')->nullable();
-            $table->json('settings')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->integer('sort_order')->default(0);
-            $table->timestamps();
-        });
-    }
-};

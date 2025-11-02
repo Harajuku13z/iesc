@@ -7,8 +7,8 @@
     --brand-primary: #9e5a59;
     --brand-secondary: #000000;
     --primary-color: var(--brand-primary);
-    --primary-light: var(--brand-secondary);
-    --primary-dark: var(--brand-primary);
+    --primary-light: #b97372;
+    --primary-dark: #7a4544;
     --secondary-color: var(--brand-secondary);
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
@@ -20,6 +20,107 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --border-radius: 12px;
+}
+
+/* Tailwind color definitions for primary */
+.bg-primary-50 {
+    background-color: #fdf6f6;
+}
+
+.bg-primary-100 {
+    background-color: #fbe8e7;
+}
+
+.bg-primary-600 {
+    background-color: var(--brand-primary);
+}
+
+.bg-primary-700 {
+    background-color: var(--primary-dark);
+}
+
+.bg-primary-800 {
+    background-color: #6a3e3d;
+}
+
+.bg-primary-900 {
+    background-color: #5a3433;
+}
+
+.text-primary-600 {
+    color: var(--brand-primary);
+}
+
+.text-primary-700 {
+    color: var(--primary-dark);
+}
+
+.text-primary-900 {
+    color: #5a3433;
+}
+
+.border-primary-600 {
+    border-color: var(--brand-primary);
+}
+
+.from-primary-50 {
+    --tw-gradient-from: #fdf6f6;
+}
+
+.from-primary-100 {
+    --tw-gradient-from: #fbe8e7;
+}
+
+.from-primary-600 {
+    --tw-gradient-from: var(--brand-primary);
+}
+
+.from-primary-700 {
+    --tw-gradient-from: var(--primary-dark);
+}
+
+.from-primary-800 {
+    --tw-gradient-from: #6a3e3d;
+}
+
+.from-primary-900 {
+    --tw-gradient-from: #5a3433;
+}
+
+.to-primary-50 {
+    --tw-gradient-to: #fdf6f6;
+}
+
+.to-primary-100 {
+    --tw-gradient-to: #fbe8e7;
+}
+
+.to-primary-400 {
+    --tw-gradient-to: #c58887;
+}
+
+.to-primary-600 {
+    --tw-gradient-to: var(--brand-primary);
+}
+
+.to-primary-700 {
+    --tw-gradient-to: var(--primary-dark);
+}
+
+.to-primary-800 {
+    --tw-gradient-to: #6a3e3d;
+}
+
+.to-primary-900 {
+    --tw-gradient-to: #5a3433;
+}
+
+.via-primary-800 {
+    --tw-gradient-stops: var(--tw-gradient-from), #6a3e3d, var(--tw-gradient-to);
+}
+
+.hover\:bg-primary-700:hover {
+    background-color: var(--primary-dark);
 }
 
 /* Base styles */

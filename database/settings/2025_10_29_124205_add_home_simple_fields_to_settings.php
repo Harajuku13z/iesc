@@ -15,9 +15,3 @@ return new class extends SettingsMigration
         $this->migrator->add('general.home_about_text', null);
     }
 };
-
-        $this->migrator->add('general.home_section_title_events', null);
-        $this->migrator->add('general.home_about_title', null);
-        $this->migrator->add('general.home_about_text', null);
-    }
-};
