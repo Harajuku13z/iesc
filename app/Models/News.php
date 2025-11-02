@@ -11,7 +11,7 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'slug', 'excerpt', 'content', 'is_published', 'published_at', 'meta_title', 'meta_description',
+        'title', 'slug', 'image', 'excerpt', 'content', 'is_published', 'published_at', 'meta_title', 'meta_description',
     ];
 
     protected $casts = [

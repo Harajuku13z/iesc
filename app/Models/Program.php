@@ -10,6 +10,7 @@ class Program extends Model
     protected $fillable = [
         'title',
         'slug',
+        'image',
         'faculty',
         'description',
         'opportunities',
