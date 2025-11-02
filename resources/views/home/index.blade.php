@@ -3,496 +3,283 @@
 @section('title', 'IESC - Institut d\'Enseignement Supérieur du Congo')
 @section('description', 'Formation supérieure d\'excellence au Congo. Programmes en Droit, Gestion et Informatique.')
 
-@push('styles')
-<style>
-/* Style Harvard - Élégant et Académique */
-.harvard-hero {
-    position: relative;
-    height: 85vh;
-    min-height: 600px;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
-                url('{{ !empty($siteSettings?->home_hero_image) ? Storage::url($siteSettings->home_hero_image) : "" }}') center/cover;
-    background-color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-content {
-    text-align: center;
-    color: white;
-    max-width: 900px;
-    padding: 0 2rem;
-}
-
-.hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-}
-
-.hero-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    font-weight: 300;
-    opacity: 0.95;
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
-}
-
-.hero-cta {
-    display: inline-flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.btn-harvard {
-    padding: 0.875rem 2rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    letter-spacing: 0.5px;
-}
-
-.btn-primary-harvard {
-    background: var(--brand-primary);
-    color: white;
-    border: 2px solid var(--brand-primary);
-}
-
-.btn-primary-harvard:hover {
-    background: transparent;
-    color: white;
-}
-
-.btn-outline-harvard {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-outline-harvard:hover {
-    background: white;
-    color: #1a1a1a;
-}
-
-/* Sections */
-.section-harvard {
-    padding: 5rem 0;
-}
-
-.section-title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 300;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-    letter-spacing: -0.01em;
-}
-
-.section-subtitle {
-    font-size: 1.125rem;
-    color: #666;
-    font-weight: 300;
-    line-height: 1.7;
-}
-
-/* Stats Section - Harvard Style */
-.stats-harvard {
-    background: #f7f7f7;
-    padding: 4rem 0;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
-    text-align: center;
-}
-
-.stat-item {
-    padding: 1.5rem;
-}
-
-.stat-number {
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--brand-primary);
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.95rem;
-    color: #666;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Featured Programs - Harvard Grid */
-.programs-harvard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.program-card-harvard {
-    background: white;
-    border: 1px solid #e5e5e5;
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.program-card-harvard:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-}
-
-.program-image-harvard {
-    height: 200px;
-    background: #f0f0f0;
-    overflow: hidden;
-    position: relative;
-}
-
-.program-image-harvard img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.program-card-harvard:hover .program-image-harvard img {
-    transform: scale(1.05);
-}
-
-.program-content-harvard {
-    padding: 1.75rem;
-}
-
-.program-title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: 0.75rem;
-    color: #1a1a1a;
-}
-
-.program-description {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
-}
-
-.program-link {
-    color: var(--brand-primary);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.program-link:hover {
-    text-decoration: underline;
-}
-
-/* About Section - Two Column */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-image {
-    width: 100%;
-    height: auto;
-}
-
-.about-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-/* News/Events Section */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.news-card {
-    background: white;
-    border-bottom: 3px solid var(--brand-primary);
-    padding: 1.5rem 0;
-    transition: all 0.3s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-2px);
-}
-
-.news-date {
-    font-size: 0.85rem;
-    color: #999;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.news-title {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #1a1a1a;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
-}
-
-.news-excerpt {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* CTA Section - Harvard Style */
-.cta-harvard {
-    background: #1a1a1a;
-    color: white;
-    padding: 5rem 0;
-    text-align: center;
-}
-
-.cta-title {
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-}
-
-.cta-text {
-    font-size: 1.125rem;
-    font-weight: 300;
-    margin-bottom: 2.5rem;
-    opacity: 0.9;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-    
-    .hero-cta {
-        flex-direction: column;
-        align-items: stretch;
-    }
-}
-</style>
-@endpush
-
 @section('content')
 
-<!-- Hero Section - Harvard Style -->
-<section class="harvard-hero">
-    <div class="hero-content">
-        <h1 class="hero-title">
-            {{ $siteSettings?->home_hero_title ?? 'Institut d\'Enseignement Supérieur du Congo' }}
-        </h1>
-        <p class="hero-subtitle">
-            {{ $siteSettings?->home_hero_subtitle ?? 'Excellence académique. Innovation pédagogique. Insertion professionnelle garantie.' }}
-        </p>
-        <div class="hero-cta">
-            <a href="{{ route('admission.create') }}" class="btn-harvard btn-primary-harvard">
-                Candidater maintenant
-            </a>
-            <a href="{{ route('programs.index') }}" class="btn-harvard btn-outline-harvard">
-                Découvrir nos programmes
-            </a>
+<!-- Hero Section -->
+<section class="position-relative bg-dark text-white" style="min-height: 85vh; display: flex; align-items: center;">
+    @if(!empty($siteSettings?->home_hero_image))
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 0;">
+            <img src="{{ Storage::url($siteSettings->home_hero_image) }}" alt="IESC Campus" class="w-100 h-100 object-fit-cover">
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="opacity: 0.6;"></div>
+        </div>
+    @endif
+    
+    <div class="container position-relative" style="z-index: 1;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 fw-light mb-4">
+                    {{ $siteSettings?->home_hero_title ?? 'Institut d\'Enseignement Supérieur du Congo' }}
+                </h1>
+                <p class="lead mb-5 fs-4 fw-light">
+                    {{ $siteSettings?->home_hero_subtitle ?? 'Excellence académique. Innovation pédagogique. Insertion professionnelle garantie.' }}
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ route('admission.create') }}" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Candidater maintenant
+                    </a>
+                    <a href="{{ route('programs.index') }}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-book me-2"></i>
+                        Nos programmes
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Stats Section -->
-<section class="stats-harvard">
-    <div class="container mx-auto px-4">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">{{ $siteSettings?->stat_1_number ?? '4' }}</div>
-                <div class="stat-label">{{ $siteSettings?->stat_1_label ?? 'Filières d\'excellence' }}</div>
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h2 class="display-4 fw-light text-primary mb-2">{{ $siteSettings?->stat_1_number ?? '4' }}</h2>
+                    <p class="text-muted mb-0 small text-uppercase" style="letter-spacing: 1px;">
+                        {{ $siteSettings?->stat_1_label ?? 'Filières d\'excellence' }}
+                    </p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">{{ $siteSettings?->stat_2_number ?? '95%' }}</div>
-                <div class="stat-label">Taux d'insertion</div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h2 class="display-4 fw-light text-primary mb-2">{{ $siteSettings?->stat_2_number ?? '95%' }}</h2>
+                    <p class="text-muted mb-0 small text-uppercase" style="letter-spacing: 1px;">
+                        Taux d'insertion
+                    </p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">{{ $siteSettings?->stat_3_number ?? '500+' }}</div>
-                <div class="stat-label">Étudiants formés</div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h2 class="display-4 fw-light text-primary mb-2">{{ $siteSettings?->stat_3_number ?? '500+' }}</h2>
+                    <p class="text-muted mb-0 small text-uppercase" style="letter-spacing: 1px;">
+                        Étudiants formés
+                    </p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">{{ $siteSettings?->stat_4_number ?? '100%' }}</div>
-                <div class="stat-label">Stage garanti</div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h2 class="display-4 fw-light text-primary mb-2">{{ $siteSettings?->stat_4_number ?? '100%' }}</h2>
+                    <p class="text-muted mb-0 small text-uppercase" style="letter-spacing: 1px;">
+                        Stage garanti
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- About Section -->
-<section class="section-harvard bg-white">
-    <div class="container mx-auto px-4">
-        <div class="about-grid">
-            <div class="about-image">
+<section class="py-5 bg-white">
+    <div class="container py-md-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
                 @if(!empty($siteSettings?->home_about_image))
-                    <img src="{{ Storage::url($siteSettings->home_about_image) }}" alt="À propos IESC">
+                    <img src="{{ Storage::url($siteSettings->home_about_image) }}" 
+                         alt="À propos IESC" 
+                         class="img-fluid rounded shadow-lg">
                 @else
-                    <div style="background: #f0f0f0; height: 400px; display: flex; align-items: center; justify-content: center;">
-                        <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
+                        <i class="bi bi-building text-muted" style="font-size: 5rem;"></i>
                     </div>
                 @endif
             </div>
-            <div>
-                <h2 class="section-title">{{ $siteSettings?->home_about_title ?? 'L\'excellence au service de votre avenir' }}</h2>
-                <p class="section-subtitle mb-6">
-                    {{ $siteSettings?->home_about_text ?? 'L\'IESC offre une formation supérieure de pointe adaptée aux besoins du marché du travail congolais et africain. Nos programmes en Licence allient excellence académique et insertion professionnelle garantie.' }}
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-light mb-4">
+                    {{ $siteSettings?->home_about_title ?? 'L\'excellence au service de votre avenir' }}
+                </h2>
+                <p class="lead text-muted mb-4">
+                    {{ $siteSettings?->home_about_text ?? 'L\'IESC offre une formation supérieure de pointe adaptée aux besoins du marché du travail congolais et africain.' }}
                 </p>
-                <p class="section-subtitle">
+                <p class="text-muted mb-4">
                     Depuis notre création, nous formons les leaders de demain grâce à un corps professoral qualifié, des infrastructures modernes et un accompagnement personnalisé de chaque étudiant.
                 </p>
+                <a href="{{ route('contact') }}" class="btn btn-outline-primary">
+                    En savoir plus
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Programs Section -->
-<section class="section-harvard" style="background: #fafafa;">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="section-title">{{ $siteSettings?->home_section_title_programs ?? 'Nos programmes d\'excellence' }}</h2>
-            <p class="section-subtitle max-w-3xl mx-auto">
+<section class="py-5 bg-light">
+    <div class="container py-md-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-light mb-3">
+                {{ $siteSettings?->home_section_title_programs ?? 'Nos programmes d\'excellence' }}
+            </h2>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
                 {{ $siteSettings?->home_section_subtitle_programs ?? 'Des formations complètes et professionnalisantes' }}
             </p>
         </div>
         
-        <div class="programs-harvard">
+        <div class="row g-4">
             @forelse($programs as $program)
-                <div class="program-card-harvard">
-                    <div class="program-image-harvard">
-                        @if($program->image)
-                            <img src="{{ Storage::url($program->image) }}" alt="{{ $program->title }}">
-                        @else
-                            <div style="background: #e5e5e5; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="program-content-harvard">
-                        <h3 class="program-title">{{ $program->title }}</h3>
-                        <p class="program-description">{{ Str::limit($program->description, 120) }}</p>
-                        <a href="{{ route('programs.show', $program) }}" class="program-link">
-                            En savoir plus
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative overflow-hidden" style="height: 200px;">
+                            @if($program->image)
+                                <img src="{{ Storage::url($program->image) }}" 
+                                     alt="{{ $program->title }}" 
+                                     class="card-img-top h-100 object-fit-cover">
+                            @else
+                                <div class="bg-light h-100 d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-book text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-normal">{{ $program->title }}</h5>
+                            <p class="card-text text-muted small">{{ Str::limit($program->description, 100) }}</p>
+                            <a href="{{ route('programs.show', $program) }}" class="btn btn-sm btn-outline-primary">
+                                En savoir plus
+                                <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             @empty
                 @foreach([
-                    ['title' => 'Licence en Sciences et Administration', 'desc' => 'Formation complète en gestion d\'entreprise, administration et management.'],
-                    ['title' => 'Licence en Informatique', 'desc' => 'Développement web, mobile et systèmes d\'information modernes.'],
-                    ['title' => 'Licence en Droit', 'desc' => 'Formation juridique complète avec pratique professionnelle intensive.'],
-                    ['title' => 'Licence en Commerce', 'desc' => 'Marketing, vente et gestion commerciale adaptés au marché africain.']
-                ] as $defaultProgram)
-                    <div class="program-card-harvard">
-                        <div class="program-image-harvard">
-                            <div style="background: #e5e5e5; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
-                                </svg>
+                    ['title' => 'Licence en Sciences et Administration', 'desc' => 'Gestion, administration et management des organisations.'],
+                    ['title' => 'Licence en Informatique', 'desc' => 'Développement web, mobile et systèmes d\'information.'],
+                    ['title' => 'Licence en Droit', 'desc' => 'Formation juridique complète et pratique professionnelle.'],
+                    ['title' => 'Licence en Commerce', 'desc' => 'Marketing, vente et gestion commerciale.']
+                ] as $index => $defaultProgram)
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="bi bi-book text-muted" style="font-size: 3rem;"></i>
                             </div>
-                        </div>
-                        <div class="program-content-harvard">
-                            <h3 class="program-title">{{ $defaultProgram['title'] }}</h3>
-                            <p class="program-description">{{ $defaultProgram['desc'] }}</p>
-                            <a href="{{ route('programs.index') }}" class="program-link">
-                                En savoir plus
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-normal">{{ $defaultProgram['title'] }}</h5>
+                                <p class="card-text text-muted small">{{ $defaultProgram['desc'] }}</p>
+                                <a href="{{ route('programs.index') }}" class="btn btn-sm btn-outline-primary">
+                                    En savoir plus
+                                    <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
             @endforelse
         </div>
         
-        <div class="text-center mt-12">
-            <a href="{{ route('programs.index') }}" class="btn-harvard btn-primary-harvard">
+        <div class="text-center mt-5">
+            <a href="{{ route('programs.index') }}" class="btn btn-primary btn-lg px-5">
                 Voir tous les programmes
             </a>
         </div>
     </div>
 </section>
 
-<!-- News/Events Preview -->
-<section class="section-harvard bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="section-title">Actualités et événements</h2>
-            <p class="section-subtitle max-w-3xl mx-auto">Restez informé de la vie de l'IESC</p>
+<!-- Avantages Section -->
+<section class="py-5 bg-white">
+    <div class="container py-md-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-light mb-3">Pourquoi choisir l'IESC ?</h2>
         </div>
         
-        <div class="news-grid">
-            <div class="news-card">
-                <div class="news-date">16 Septembre 2025</div>
-                <h3 class="news-title">Ouverture des inscriptions 2025-2026</h3>
-                <p class="news-excerpt">Les candidatures pour l'année académique 2025-2026 sont officiellement ouvertes. Places limitées.</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-briefcase text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings?->advantage_1_title ?? 'Stage garanti' }}</h5>
+                    <p class="text-muted small">{{ $siteSettings?->advantage_1_text ?? 'Un stage professionnel assuré pour chaque diplômé' }}</p>
+                </div>
             </div>
             
-            <div class="news-card">
-                <div class="news-date">Mars 2025</div>
-                <h3 class="news-title">Journée Portes Ouvertes</h3>
-                <p class="news-excerpt">Venez découvrir nos campus, rencontrer nos enseignants et échanger avec nos étudiants.</p>
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-graph-up text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings?->advantage_2_title ?? 'Filières à fort emploi' }}</h5>
+                    <p class="text-muted small">{{ $siteSettings?->advantage_2_text ?? 'Formations adaptées aux besoins du marché' }}</p>
+                </div>
             </div>
             
-            <div class="news-card">
-                <div class="news-date">Février 2025</div>
-                <h3 class="news-title">Partenariats entreprises</h3>
-                <p class="news-excerpt">L'IESC renforce ses partenariats avec les grandes entreprises pour garantir l'emploi de nos diplômés.</p>
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-building text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings?->advantage_3_title ?? 'Campus moderne' }}</h5>
+                    <p class="text-muted small">{{ $siteSettings?->advantage_3_text ?? 'Infrastructures et équipements de pointe' }}</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-laptop text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings?->advantage_4_title ?? 'Facilité d\'achat PC' }}</h5>
+                    <p class="text-muted small">{{ $siteSettings?->advantage_4_text ?? 'Ordinateurs portables à crédit' }}</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="cta-harvard">
-    <div class="container mx-auto px-4">
-        <h2 class="cta-title">{{ $siteSettings?->home_cta_title ?? 'Prêt à rejoindre l\'IESC ?' }}</h2>
-        <p class="cta-text max-w-2xl mx-auto">
-            {{ $siteSettings?->home_cta_subtitle ?? 'Les inscriptions sont ouvertes. Rejoignez une institution d\'excellence et donnez un nouvel élan à votre carrière.' }}
-        </p>
-        <div class="flex gap-4 justify-center flex-wrap">
-            <a href="{{ route('admission.create') }}" class="btn-harvard btn-primary-harvard">
-                Déposer ma candidature
-            </a>
-            <a href="{{ route('contact') }}" class="btn-harvard btn-outline-harvard">
-                Nous contacter
-            </a>
+<section class="py-5 bg-dark text-white">
+    <div class="container py-md-5">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-light mb-4">
+                    {{ $siteSettings?->home_cta_title ?? 'Prêt à rejoindre l\'IESC ?' }}
+                </h2>
+                <p class="lead mb-5">
+                    {{ $siteSettings?->home_cta_subtitle ?? 'Les inscriptions sont ouvertes. Rejoignez une institution d\'excellence.' }}
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ route('admission.create') }}" class="btn btn-primary btn-lg px-5">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Déposer ma candidature
+                    </a>
+                    <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg px-5">
+                        <i class="bi bi-envelope me-2"></i>
+                        Nous contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Band -->
+<section class="py-4 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <i class="bi bi-telephone-fill fs-4 mb-2 d-block"></i>
+                <a href="tel:{{ $siteSettings->contact_phone ?? '+242 06 541 98 91' }}" class="text-white text-decoration-none">
+                    {{ $siteSettings->contact_phone ?? '+242 06 541 98 91' }}
+                </a>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-envelope-fill fs-4 mb-2 d-block"></i>
+                <a href="mailto:{{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}" class="text-white text-decoration-none">
+                    {{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}
+                </a>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-geo-alt-fill fs-4 mb-2 d-block"></i>
+                <span>{{ $siteSettings->contact_address ?? '112, Av. de France, Poto-poto' }}</span>
+            </div>
         </div>
     </div>
 </section>
