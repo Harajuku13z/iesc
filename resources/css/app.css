@@ -4,6 +4,27 @@
 /* Import Harvard Style */
 @import './harvard-style.css';
 
+/* IMPORTANT: Forcer la visibilité du menu */
+.navbar {
+    background: #fff !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+.navbar-nav .nav-link {
+    color: #000 !important;
+    font-weight: 400 !important;
+    font-size: 0.9375rem !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #9e5a59 !important;
+}
+
+.navbar-brand {
+    color: #000 !important;
+    font-weight: 600 !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
