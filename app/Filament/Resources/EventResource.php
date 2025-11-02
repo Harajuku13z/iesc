@@ -24,16 +24,40 @@ class EventResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                    ->label('Titre de l\'événement')
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                    
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image de l\'événement')
+                    ->image()
+                    ->directory('events')
+                    ->imageEditor()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->maxSize(5120)
+                    ->columnSpanFull(),
+                    
+                Forms\Components\RichEditor::make('description')
+                    ->label('Description')
                     ->required()
                     ->columnSpanFull(),
+                    
                 Forms\Components\DateTimePicker::make('starts_at')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('ends_at'),
+                    ->label('Date et heure de début')
+                    ->required()
+                    ->native(false),
+                    
+                Forms\Components\DateTimePicker::make('ends_at')
+                    ->label('Date et heure de fin')
+                    ->native(false),
+                    
                 Forms\Components\TextInput::make('location')
+                    ->label('Lieu')
                     ->maxLength(255),
+                    
                 Forms\Components\Toggle::make('is_published')
+                    ->label('Publié')
                     ->default(true),
             ]);
     }

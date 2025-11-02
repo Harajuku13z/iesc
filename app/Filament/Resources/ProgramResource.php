@@ -24,18 +24,35 @@ class ProgramResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->label('Titre du programme')
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                    
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image du programme')
+                    ->image()
+                    ->directory('programs')
+                    ->imageEditor()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->maxSize(5120)
+                    ->columnSpanFull(),
+                    
                 Forms\Components\TextInput::make('faculty')
-                    ->required()
+                    ->label('Faculté')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                    
+                Forms\Components\RichEditor::make('description')
+                    ->label('Description')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('duration')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('degree_level')
-                    ->maxLength(255),
+                    
+                Forms\Components\RichEditor::make('opportunities')
+                    ->label('Débouchés professionnels')
+                    ->columnSpanFull(),
+                    
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Actif')
                     ->default(true),
             ]);
     }
@@ -44,7 +61,18 @@ class ProgramResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Image'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Titre')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('faculty')
+                    ->label('Faculté')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Actif')
+                    ->boolean(),
             ])
             ->filters([
                 //
