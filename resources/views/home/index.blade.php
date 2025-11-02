@@ -250,22 +250,37 @@
                 </div>
             @endforeach
             
-            <!-- News Cards -->
+            <!-- News Cards avec Photos -->
             @foreach($news as $article)
                 <div class="col-md-6 col-lg-4">
                     <article class="bg-white border h-100" style="border-color: #e0e0e0 !important; transition: all 0.3s;">
+                        <!-- Image de mise en avant -->
+                        <div style="height: 200px; overflow: hidden; background: #f5f5f5;">
+                            @if($article->image)
+                                <img src="{{ Storage::url($article->image) }}" 
+                                     alt="{{ $article->title }}"
+                                     class="w-100 h-100 object-fit-cover">
+                            @else
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-primary bg-opacity-10">
+                                    <i class="bi bi-newspaper text-primary" style="font-size: 3rem; opacity: 0.5;"></i>
+                                </div>
+                            @endif
+                        </div>
+                        
                         <div class="p-4">
-                            <div class="badge bg-primary text-white mb-3" style="border-radius: 0; font-size: 0.7rem; font-weight: 500;">
-                                ACTUALITÉ
-                            </div>
-                            <div class="text-muted small mb-2">
-                                {{ $article->published_at?->format('d M Y') ?? 'Récent' }}
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <div class="badge bg-primary text-white" style="border-radius: 0; font-size: 0.7rem; font-weight: 500;">
+                                    ACTUALITÉ
+                                </div>
+                                <div class="text-muted small">
+                                    {{ $article->published_at?->format('d M Y') ?? 'Récent' }}
+                                </div>
                             </div>
                             <h3 class="h5 mb-3" style="font-weight: 400; line-height: 1.3;">
                                 {{ $article->title }}
                             </h3>
                             <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">
-                                {{ Str::limit(strip_tags($article->content), 120) }}
+                                {{ Str::limit(strip_tags($article->content), 100) }}
                             </p>
                             <a href="{{ route('news.index') }}" 
                                class="text-decoration-none d-inline-flex align-items-center gap-2"
