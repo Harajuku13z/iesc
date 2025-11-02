@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'IESC - Institut d\'Enseignement Supérieur du Congo')
+@section('title', $siteSettings->site_name ?? 'IESC - Institut d\'Enseignement Supérieur du Congo')
+@section('description', $siteSettings->site_description ?? 'Formation supérieure d\'excellence au Congo.')
 
 @section('content')
 
-<!-- Large Hero Image with Text Overlay -->
+<!-- Hero Section - Image de fond configurable -->
 <section class="position-relative" style="height: 90vh; min-height: 600px; overflow: hidden;">
     @if(!empty($siteSettings?->home_hero_image))
         <img src="{{ Storage::url($siteSettings->home_hero_image) }}" 
              alt="Campus IESC" 
              class="position-absolute w-100 h-100 object-fit-cover"
              style="z-index: 0;">
-        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black" style="opacity: 0.35; z-index: 1;"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black" style="opacity: 0.4; z-index: 1;"></div>
     @else
         <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="z-index: 0;"></div>
     @endif
@@ -30,20 +31,164 @@
     </div>
 </section>
 
-<!-- Featured Content Section -->
+<!-- Stats Bar -->
+<section class="py-5" style="background: #fafafa;">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-6 col-md-3 py-4">
+                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
+                    {{ $siteSettings?->stat_1_number ?? '4' }}
+                </div>
+                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
+                    {{ $siteSettings?->stat_1_label ?? 'Filières' }}
+                </div>
+            </div>
+            <div class="col-6 col-md-3 py-4">
+                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
+                    {{ $siteSettings?->stat_2_number ?? '95%' }}
+                </div>
+                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
+                    {{ $siteSettings?->stat_2_label ?? 'Insertion Pro' }}
+                </div>
+            </div>
+            <div class="col-6 col-md-3 py-4">
+                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
+                    {{ $siteSettings?->stat_3_number ?? '500+' }}
+                </div>
+                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
+                    {{ $siteSettings?->stat_3_label ?? 'Étudiants' }}
+                </div>
+            </div>
+            <div class="col-6 col-md-3 py-4">
+                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
+                    {{ $siteSettings?->stat_4_number ?? '100%' }}
+                </div>
+                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
+                    {{ $siteSettings?->stat_4_label ?? 'Stage Garanti' }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section - Image configurable -->
+<section class="section-harvard bg-white">
+    <div class="container py-5">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-6">
+                @if(!empty($siteSettings?->home_about_image))
+                    <img src="{{ Storage::url($siteSettings->home_about_image) }}" 
+                         alt="À propos IESC"
+                         class="w-100 h-auto img-fluid">
+                @else
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 500px;">
+                        <i class="bi bi-building text-muted" style="font-size: 5rem;"></i>
+                    </div>
+                @endif
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-5 mb-4" style="font-weight: 300; line-height: 1.2; letter-spacing: -0.5px;">
+                    {{ $siteSettings?->home_about_title ?? 'L\'excellence au service de votre avenir' }}
+                </h2>
+                <div class="mb-4" style="font-size: 1.125rem; font-weight: 300; line-height: 1.7; color: #333;">
+                    {!! nl2br(e($siteSettings?->home_about_text ?? 'L\'IESC offre une formation supérieure de pointe adaptée aux besoins du marché du travail congolais et africain.')) !!}
+                </div>
+                <div class="mt-4">
+                    <a href="{{ route('contact') }}" 
+                       class="text-decoration-none d-inline-flex align-items-center gap-2"
+                       style="color: var(--brand-primary); font-weight: 500; font-size: 0.9375rem;">
+                        En savoir plus sur l'IESC
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Avantages Section - 4 colonnes configurables -->
+@if(!empty($siteSettings?->advantage_1_title) || !empty($siteSettings?->advantage_2_title) || !empty($siteSettings?->advantage_3_title) || !empty($siteSettings?->advantage_4_title))
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
+                Pourquoi choisir l'IESC ?
+            </h2>
+        </div>
+        
+        <div class="row g-4">
+            @if(!empty($siteSettings?->advantage_1_title))
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-briefcase text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings->advantage_1_title }}</h5>
+                    <p class="text-muted small">{{ $siteSettings->advantage_1_text }}</p>
+                </div>
+            </div>
+            @endif
+            
+            @if(!empty($siteSettings?->advantage_2_title))
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-graph-up text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings->advantage_2_title }}</h5>
+                    <p class="text-muted small">{{ $siteSettings->advantage_2_text }}</p>
+                </div>
+            </div>
+            @endif
+            
+            @if(!empty($siteSettings?->advantage_3_title))
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-building text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings->advantage_3_title }}</h5>
+                    <p class="text-muted small">{{ $siteSettings->advantage_3_text }}</p>
+                </div>
+            </div>
+            @endif
+            
+            @if(!empty($siteSettings?->advantage_4_title))
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-laptop text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5 class="fw-normal mb-3">{{ $siteSettings->advantage_4_title }}</h5>
+                    <p class="text-muted small">{{ $siteSettings->advantage_4_text }}</p>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+</section>
+@endif
+
+<!-- Programs Section - Titre configurable -->
 <section class="py-5" style="background: #f8f8f8;">
     <div class="container py-4">
         <div class="row mb-4">
             <div class="col">
-                <h2 class="display-5 mb-0" style="font-weight: 300; letter-spacing: -0.5px;">
+                <h2 class="display-5 mb-2" style="font-weight: 300; letter-spacing: -0.5px;">
                     {{ $siteSettings?->home_section_title_programs ?? 'Nos programmes' }}
                 </h2>
+                @if(!empty($siteSettings?->home_section_subtitle_programs))
+                    <p class="text-muted" style="font-size: 1.125rem;">
+                        {{ $siteSettings->home_section_subtitle_programs }}
+                    </p>
+                @endif
             </div>
         </div>
         
         <div class="row g-4">
-            @forelse($programs as $index => $program)
-                @if($index < 3)
+            @forelse($programs->take(6) as $program)
                 <div class="col-md-6 col-lg-4">
                     <article class="bg-white border h-100" style="border-color: #e0e0e0 !important; transition: all 0.3s;">
                         <div style="height: 260px; overflow: hidden; background: #f5f5f5;">
@@ -75,7 +220,6 @@
                         </div>
                     </article>
                 </div>
-                @endif
             @empty
                 @foreach([
                     'Licence en Sciences et Administration',
@@ -106,100 +250,30 @@
                 @endforeach
             @endforelse
         </div>
-    </div>
-</section>
-
-<!-- Two Column Content Section -->
-<section class="py-5 bg-white">
-    <div class="container py-5">
-        <div class="row g-5 align-items-start">
-            <div class="col-lg-6">
-                @if(!empty($siteSettings?->home_about_image))
-                    <img src="{{ Storage::url($siteSettings->home_about_image) }}" 
-                         alt="À propos IESC"
-                         class="w-100 h-auto">
-                @else
-                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 500px;">
-                        <i class="bi bi-building text-muted" style="font-size: 5rem;"></i>
-                    </div>
-                @endif
-            </div>
-            <div class="col-lg-6">
-                <h2 class="display-5 mb-4" style="font-weight: 300; line-height: 1.2; letter-spacing: -0.5px;">
-                    {{ $siteSettings?->home_about_title ?? 'L\'excellence au service de votre avenir' }}
-                </h2>
-                <div class="mb-4" style="font-size: 1.125rem; font-weight: 300; line-height: 1.7; color: #333;">
-                    {{ $siteSettings?->home_about_text ?? 'L\'IESC offre une formation supérieure de pointe adaptée aux besoins du marché du travail congolais et africain. Nos programmes en Licence allient excellence académique et insertion professionnelle garantie.' }}
-                </div>
-                <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">
-                    Depuis notre création, nous formons les leaders de demain grâce à un corps professoral qualifié, des infrastructures modernes et un accompagnement personnalisé de chaque étudiant.
-                </p>
-                <div class="mt-4">
-                    <a href="{{ route('contact') }}" 
-                       class="text-decoration-none d-inline-flex align-items-center gap-2"
-                       style="color: var(--brand-primary); font-weight: 500; font-size: 0.9375rem;">
-                        En savoir plus sur l'IESC
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ route('programs.index') }}" 
+               class="btn btn-lg px-5"
+               style="background: var(--brand-primary); color: #fff; border: none; border-radius: 0; font-weight: 500; font-size: 0.9375rem;">
+                Voir tous les programmes
+            </a>
         </div>
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="py-5" style="background: #fafafa;">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-6 col-md-3 py-4">
-                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
-                    {{ $siteSettings?->stat_1_number ?? '4' }}
-                </div>
-                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
-                    Filières
-                </div>
-            </div>
-            <div class="col-6 col-md-3 py-4">
-                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
-                    {{ $siteSettings?->stat_2_number ?? '95%' }}
-                </div>
-                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
-                    Insertion Pro
-                </div>
-            </div>
-            <div class="col-6 col-md-3 py-4">
-                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
-                    {{ $siteSettings?->stat_3_number ?? '500+' }}
-                </div>
-                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
-                    Étudiants
-                </div>
-            </div>
-            <div class="col-6 col-md-3 py-4">
-                <div style="font-size: 4rem; font-weight: 300; color: var(--brand-primary); line-height: 1;">
-                    {{ $siteSettings?->stat_4_number ?? '100%' }}
-                </div>
-                <div class="mt-2" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 1.5px; color: #666;">
-                    Stage Garanti
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Events & News Section - Harvard Card Style -->
-<section class="py-5" style="background: #f8f8f8;">
+<!-- Events & News Section - Titre configurable -->
+<section class="py-5" style="background: #ffffff;">
     <div class="container py-5">
         <div class="row mb-5">
             <div class="col">
                 <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
                     {{ $siteSettings?->home_section_title_events ?? 'Actualités & Événements' }}
                 </h2>
-                <p class="text-muted" style="font-size: 1.125rem;">
-                    {{ $siteSettings?->home_section_subtitle_events ?? 'Restez informé de la vie de l\'IESC' }}
-                </p>
+                @if(!empty($siteSettings?->home_section_subtitle_events))
+                    <p class="text-muted" style="font-size: 1.125rem;">
+                        {{ $siteSettings->home_section_subtitle_events }}
+                    </p>
+                @endif
             </div>
         </div>
         
@@ -306,18 +380,28 @@
     </div>
 </section>
 
-<!-- Full Width CTA -->
-<section class="py-5 bg-black text-white">
-    <div class="container py-5">
+<!-- CTA Section - Image de fond et textes configurables -->
+<section class="position-relative py-5 text-white" style="min-height: 400px;">
+    @if(!empty($siteSettings?->home_cta_background_image))
+        <img src="{{ Storage::url($siteSettings->home_cta_background_image) }}" 
+             alt="CTA Background" 
+             class="position-absolute w-100 h-100 object-fit-cover"
+             style="z-index: 0; top: 0; left: 0;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black" style="opacity: 0.6; z-index: 1;"></div>
+    @else
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black" style="z-index: 0;"></div>
+    @endif
+    
+    <div class="container position-relative py-5" style="z-index: 2;">
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
                 <h2 class="display-4 mb-4" style="font-weight: 300; line-height: 1.2;">
                     {{ $siteSettings?->home_cta_title ?? 'Prêt à rejoindre l\'IESC ?' }}
                 </h2>
-                <p class="mb-5" style="font-size: 1.25rem; font-weight: 300; opacity: 0.9;">
+                <p class="mb-5" style="font-size: 1.25rem; font-weight: 300; opacity: 0.95;">
                     {{ $siteSettings?->home_cta_subtitle ?? 'Les inscriptions sont ouvertes. Rejoignez une institution d\'excellence.' }}
                 </p>
-                <div class="d-flex gap-3 justify-content-center">
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
                     <a href="{{ route('admission.create') }}" 
                        class="btn btn-light btn-lg px-5"
                        style="border-radius: 0; font-weight: 500; font-size: 0.9375rem;">
