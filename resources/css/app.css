@@ -1,6 +1,9 @@
 /* Import Bootstrap */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* Import Harvard Style */
+@import './harvard-style.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
