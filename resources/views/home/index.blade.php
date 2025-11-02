@@ -189,6 +189,95 @@
     </div>
 </section>
 
+<!-- Events & News Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
+                    {{ $siteSettings?->home_section_title_events ?? 'Actualités & Événements' }}
+                </h2>
+                <p class="text-muted" style="font-size: 1.125rem;">
+                    {{ $siteSettings?->home_section_subtitle_events ?? 'Restez informé de la vie de l\'IESC' }}
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Events Column -->
+            <div class="col-lg-6">
+                <h3 class="h4 mb-4" style="font-weight: 400;">
+                    <i class="bi bi-calendar-event text-primary me-2"></i>
+                    Événements à venir
+                </h3>
+                
+                @forelse($events->take(3) as $event)
+                    <div class="border-start border-3 border-primary ps-3 mb-4">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                            <span class="badge bg-primary" style="border-radius: 0; font-size: 0.75rem;">
+                                {{ $event->starts_at->format('d M Y') }}
+                            </span>
+                            <span class="text-muted small">{{ $event->starts_at->format('H:i') }}</span>
+                        </div>
+                        <h4 class="h6 mb-2" style="font-weight: 500;">
+                            {{ $event->title }}
+                        </h4>
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-geo-alt me-1"></i>
+                            {{ $event->location }}
+                        </p>
+                        <p class="text-muted small mb-2">
+                            {{ Str::limit(strip_tags($event->description), 100) }}
+                        </p>
+                        <a href="{{ route('events.index') }}" class="small" style="color: var(--brand-primary); text-decoration: none; font-weight: 500;">
+                            En savoir plus →
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-muted">Aucun événement à venir pour le moment.</p>
+                @endforelse
+                
+                @if($events->count() > 3)
+                    <a href="{{ route('events.index') }}" class="btn btn-outline-primary btn-sm mt-3" style="border-radius: 0;">
+                        Voir tous les événements
+                    </a>
+                @endif
+            </div>
+            
+            <!-- News Column -->
+            <div class="col-lg-6">
+                <h3 class="h4 mb-4" style="font-weight: 400;">
+                    <i class="bi bi-newspaper text-primary me-2"></i>
+                    Dernières actualités
+                </h3>
+                
+                @forelse($news as $article)
+                    <div class="border-bottom pb-4 mb-4">
+                        <div class="text-muted small mb-2">
+                            {{ $article->published_at?->format('d M Y') ?? 'Récent' }}
+                        </div>
+                        <h4 class="h6 mb-2" style="font-weight: 500;">
+                            {{ $article->title }}
+                        </h4>
+                        <p class="text-muted small mb-2">
+                            {{ Str::limit(strip_tags($article->content), 120) }}
+                        </p>
+                        <a href="{{ route('news.index') }}" class="small" style="color: var(--brand-primary); text-decoration: none; font-weight: 500;">
+                            Lire la suite →
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-muted">Aucune actualité pour le moment.</p>
+                @endforelse
+                
+                <a href="{{ route('news.index') }}" class="btn btn-outline-primary btn-sm mt-3" style="border-radius: 0;">
+                    Toutes les actualités
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Full Width CTA -->
 <section class="py-5 bg-black text-white">
     <div class="container py-5">
