@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', $siteSettings->site_name ?? 'IESC')</title>
+    <title>@yield('title', 'IESC')</title>
     <meta name="description" content="@yield('description', 'Institut d\'Enseignement Supérieur du Congo')">
     
     @if(!empty($siteSettings?->site_favicon_path))
@@ -12,25 +12,110 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
+    <style>
+        /* Override Bootstrap with Harvard exact styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000;
+        }
+        
+        .navbar {
+            border-bottom: 1px solid #e5e5e5;
+            background: #fff !important;
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            color: #000 !important;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand img {
+            height: 45px;
+        }
+        
+        .nav-link {
+            color: #000 !important;
+            font-weight: 400;
+            font-size: 0.9375rem;
+            padding: 0.5rem 1rem !important;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--brand-primary, #9e5a59) !important;
+        }
+        
+        .btn-primary {
+            background: var(--brand-primary, #9e5a59) !important;
+            border: none !important;
+            border-radius: 0 !important;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.5rem 1.25rem !important;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-outline-dark {
+            border-radius: 0 !important;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        footer {
+            background: #000;
+            color: #fff;
+            font-size: 0.9375rem;
+        }
+        
+        footer h6 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.25rem;
+        }
+        
+        footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover {
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+        }
+    </style>
+    
     @stack('styles')
 </head>
 <body>
-    <!-- Navbar Harvard Style -->
-    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
-        <div class="container-harvard">
+    <!-- Top Navbar - Harvard Style -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
             <a class="navbar-brand" href="/">
                 @if(!empty($siteSettings?->site_logo_path))
-                    <img src="{{ Storage::url($siteSettings->site_logo_path) }}" alt="IESC" style="height: 45px;">
+                    <img src="{{ Storage::url($siteSettings->site_logo_path) }}" alt="IESC">
                 @else
-                    {{ $siteSettings->site_name ?? 'IESC' }}
+                    IESC
                 @endif
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/">Accueil</a>
@@ -51,12 +136,12 @@
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="{{ route('student.portal') }}" class="btn btn-sm btn-outline-dark rounded-0">
+                        <a href="{{ route('student.portal') }}" class="btn btn-sm btn-outline-dark">
                             Espace Étudiant
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="{{ route('admission.create') }}" class="btn btn-sm btn-primary rounded-0 text-white">
+                        <a href="{{ route('admission.create') }}" class="btn btn-sm btn-primary">
                             S'inscrire
                         </a>
                     </li>
@@ -65,19 +150,18 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main>
         @yield('content')
     </main>
 
-    <!-- Footer Harvard Style -->
-    <footer class="footer-harvard">
-        <div class="container-harvard">
-            <div class="row g-5">
+    <!-- Footer - Harvard Black Style -->
+    <footer class="pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-4">
                 <div class="col-lg-4">
-                    <h6>{{ $siteSettings->site_name ?? 'IESC' }}</h6>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 0.9375rem; line-height: 1.6;">
-                        {{ $siteSettings->footer_description ?? 'Institut d\'Enseignement Supérieur du Congo - Excellence académique et insertion professionnelle.' }}
+                    <h6>IESC</h6>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">
+                        {{ $siteSettings->footer_description ?? 'Institut d\'Enseignement Supérieur du Congo' }}
                     </p>
                 </div>
                 
@@ -87,7 +171,7 @@
                         <li class="mb-2"><a href="/">Accueil</a></li>
                         <li class="mb-2"><a href="{{ route('programs.index') }}">Formations</a></li>
                         <li class="mb-2"><a href="{{ route('admissions.info') }}">Admission</a></li>
-                        <li class="mb-2"><a href="{{ route('careers') }}">Carrières</a></li>
+                        <li class="mb-2"><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -95,62 +179,31 @@
                     <h6>Ressources</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="{{ route('news.index') }}">Actualités</a></li>
-                        <li class="mb-2"><a href="{{ route('student.portal') }}">Espace Étudiant</a></li>
-                        <li class="mb-2"><a href="{{ route('contact') }}">Contact</a></li>
+                        <li class="mb-2"><a href="{{ route('student.portal') }}">Portail Étudiant</a></li>
                         <li class="mb-2"><a href="/admin">Administration</a></li>
                     </ul>
                 </div>
                 
                 <div class="col-lg-4 col-md-4">
                     <h6>Contact</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2" style="color: rgba(255,255,255,0.7);">
-                            {{ $siteSettings->contact_address ?? '112, Avenue de France, Poto-poto' }}
-                        </li>
-                        <li class="mb-2">
-                            <a href="tel:{{ $siteSettings->contact_phone ?? '+242065419891' }}">
-                                {{ $siteSettings->contact_phone ?? '+242 06 541 98 91' }}
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="mailto:{{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}">
-                                {{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}
-                            </a>
-                        </li>
+                    <ul class="list-unstyled" style="color: rgba(255,255,255,0.7);">
+                        <li class="mb-2">{{ $siteSettings->contact_address ?? '112, Avenue de France, Poto-poto' }}</li>
+                        <li class="mb-2"><a href="tel:{{ str_replace(' ', '', $siteSettings->contact_phone ?? '+242065419891') }}">{{ $siteSettings->contact_phone ?? '+242 06 541 98 91' }}</a></li>
+                        <li class="mb-2"><a href="mailto:{{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}">{{ $siteSettings->contact_email ?? 'contact@iesc.cg' }}</a></li>
                     </ul>
-                    
-                    @if(!empty($siteSettings?->social_facebook_url) || !empty($siteSettings?->social_linkedin_url))
-                        <div class="mt-3">
-                            @if(!empty($siteSettings?->social_facebook_url))
-                                <a href="{{ $siteSettings->social_facebook_url }}" target="_blank" class="text-white me-3">
-                                    <i class="bi bi-facebook" style="font-size: 1.25rem;"></i>
-                                </a>
-                            @endif
-                            @if(!empty($siteSettings?->social_linkedin_url))
-                                <a href="{{ $siteSettings->social_linkedin_url }}" target="_blank" class="text-white me-3">
-                                    <i class="bi bi-linkedin" style="font-size: 1.25rem;"></i>
-                                </a>
-                            @endif
-                            @if(!empty($siteSettings?->social_instagram_url))
-                                <a href="{{ $siteSettings->social_instagram_url }}" target="_blank" class="text-white me-3">
-                                    <i class="bi bi-instagram" style="font-size: 1.25rem;"></i>
-                                </a>
-                            @endif
-                        </div>
-                    @endif
                 </div>
             </div>
             
-            <div class="footer-harvard-bottom">
+            <div class="pt-4 mt-4" style="border-top: 1px solid #333;">
                 <div class="row">
-                    <div class="col-md-6">
-                        <p class="mb-0" style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">
-                            © {{ date('Y') }} {{ $siteSettings->site_name ?? 'IESC' }}. Tous droits réservés.
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                            © {{ date('Y') }} IESC. Tous droits réservés.
                         </p>
                     </div>
-                    <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                        <p class="mb-0" style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">
-                            Brazzaville, Congo
+                    <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                        <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                            Brazzaville, République du Congo
                         </p>
                     </div>
                 </div>
