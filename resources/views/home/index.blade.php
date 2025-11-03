@@ -323,8 +323,33 @@
                     </article>
                 </div>
             @endforeach
-            
-            <!-- News Cards avec Photos -->
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ route('events.index') }}" 
+               class="btn btn-lg px-5"
+               style="background: #ffc107; color: #000; border: none; border-radius: 0; font-weight: 500; font-size: 0.9375rem;">
+                Voir tous les événements
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- News Section - Séparée -->
+<section class="py-5" style="background: #f8f8f8;">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
+                    Dernières actualités
+                </h2>
+                <p class="text-muted" style="font-size: 1.125rem;">
+                    Restez informé de la vie de l'IESC
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
             @foreach($news as $article)
                 <div class="col-md-6 col-lg-4">
                     <article class="bg-white border h-100" style="border-color: #e0e0e0 !important; transition: all 0.3s;">
@@ -374,7 +399,7 @@
             <a href="{{ route('news.index') }}" 
                class="btn btn-lg px-5"
                style="background: var(--brand-primary); color: #fff; border: none; border-radius: 0; font-weight: 500; font-size: 0.9375rem;">
-                Voir toutes les actualités et événements
+                Toutes les actualités
             </a>
         </div>
     </div>
