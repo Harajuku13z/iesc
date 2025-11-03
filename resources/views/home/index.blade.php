@@ -261,6 +261,106 @@
     </div>
 </section>
 
+<!-- Parcours d'inscription Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
+                Comment s'inscrire ?
+            </h2>
+            <p class="text-muted mx-auto" style="font-size: 1.125rem; max-width: 700px;">
+                Un processus simple et rapide en 4 étapes
+            </p>
+        </div>
+        
+        <div class="row g-4 position-relative">
+            <div class="d-none d-lg-block position-absolute top-50 start-0 w-100 translate-middle-y" style="height: 2px; background: #e0e0e0; z-index: 0;"></div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center position-relative" style="z-index: 1;">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        1
+                    </div>
+                    <h3 class="h5 mb-3" style="font-weight: 500;">Candidature</h3>
+                    <p class="text-muted small">Remplissez le formulaire en ligne</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center position-relative" style="z-index: 1;">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        2
+                    </div>
+                    <h3 class="h5 mb-3" style="font-weight: 500;">Étude (48h)</h3>
+                    <p class="text-muted small">Notre équipe étudie votre dossier</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center position-relative" style="z-index: 1;">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        3
+                    </div>
+                    <h3 class="h5 mb-3" style="font-weight: 500;">Acceptation</h3>
+                    <p class="text-muted small">Lettre d'admission par email</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="text-center position-relative" style="z-index: 1;">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        4
+                    </div>
+                    <h3 class="h5 mb-3" style="font-weight: 500;">Inscription</h3>
+                    <p class="text-muted small">Finalisez et recevez votre carte</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ route('admission.create') }}" 
+               class="btn btn-primary btn-lg px-5"
+               style="border-radius: 0;">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                Déposer ma candidature
+            </a>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="card border bg-light">
+                    <div class="card-body p-4">
+                        <h5 class="text-center mb-4" style="font-weight: 500; font-size: 0.95rem;">
+                            <i class="bi bi-folder-check text-primary me-2"></i>
+                            Documents à préparer
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Diplôme du BAC</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Relevé de notes</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Pièce d'identité</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Photo d'identité</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Certificat de naissance</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Lettre de motivation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Events & News Section - Titre configurable -->
 <section class="py-5" style="background: #ffffff;">
     <div class="container py-5">
