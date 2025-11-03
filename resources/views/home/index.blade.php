@@ -261,97 +261,192 @@
     </div>
 </section>
 
-<!-- Parcours d'inscription Section -->
-<section class="py-5 bg-white">
+<!-- Parcours d'inscription Section - DESIGN AMÉLIORÉ -->
+<section class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="display-5 mb-3" style="font-weight: 300; letter-spacing: -0.5px;">
-                Comment s'inscrire ?
+            <div class="d-inline-block mb-3">
+                <span class="badge bg-primary text-white px-4 py-2" style="font-size: 0.85rem; font-weight: 500; letter-spacing: 1px;">
+                    PROCESSUS D'INSCRIPTION
+                </span>
+            </div>
+            <h2 class="display-4 mb-4" style="font-weight: 300; letter-spacing: -0.5px; color: #000;">
+                Comment rejoindre l'IESC ?
             </h2>
-            <p class="text-muted mx-auto" style="font-size: 1.125rem; max-width: 700px;">
-                Un processus simple et rapide en 4 étapes
+            <p class="text-muted mx-auto lead" style="max-width: 750px;">
+                4 étapes simples pour démarrer votre parcours académique
             </p>
         </div>
         
-        <div class="row g-4 position-relative">
-            <div class="d-none d-lg-block position-absolute top-50 start-0 w-100 translate-middle-y" style="height: 2px; background: #e0e0e0; z-index: 0;"></div>
-            
+        <!-- Timeline des étapes -->
+        <div class="row g-5 mb-5">
+            <!-- Étape 1 -->
             <div class="col-md-6 col-lg-3">
-                <div class="text-center position-relative" style="z-index: 1;">
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="position-relative">
+                    <!-- Numéro -->
+                    <div class="position-absolute top-0 start-0 bg-primary text-white d-flex align-items-center justify-content-center" 
+                         style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 15px rgba(158,90,89,0.3);">
                         1
                     </div>
-                    <h3 class="h5 mb-3" style="font-weight: 500;">Candidature</h3>
-                    <p class="text-muted small">Remplissez le formulaire en ligne</p>
+                    
+                    <!-- Card -->
+                    <div class="bg-white border-0 shadow-sm p-4 h-100" style="margin-top: 25px; border-radius: 12px;">
+                        <div class="pt-4">
+                            <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 70px; height: 70px;">
+                                <i class="bi bi-pencil-square text-primary" style="font-size: 2rem;"></i>
+                            </div>
+                            <h3 class="h5 mb-3" style="font-weight: 600; color: #000;">Candidature en ligne</h3>
+                            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                                Remplissez notre formulaire de candidature et téléchargez vos documents justificatifs.
+                            </p>
+                            <div class="d-flex align-items-center gap-2 text-primary" style="font-size: 0.875rem; font-weight: 500;">
+                                <i class="bi bi-clock-fill"></i>
+                                <span>10 minutes</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
+            <!-- Étape 2 -->
             <div class="col-md-6 col-lg-3">
-                <div class="text-center position-relative" style="z-index: 1;">
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 start-0 bg-primary text-white d-flex align-items-center justify-content-center" 
+                         style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 15px rgba(158,90,89,0.3);">
                         2
                     </div>
-                    <h3 class="h5 mb-3" style="font-weight: 500;">Étude (48h)</h3>
-                    <p class="text-muted small">Notre équipe étudie votre dossier</p>
+                    
+                    <div class="bg-white border-0 shadow-sm p-4 h-100" style="margin-top: 25px; border-radius: 12px;">
+                        <div class="pt-4">
+                            <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 70px; height: 70px;">
+                                <i class="bi bi-search text-info" style="font-size: 2rem;"></i>
+                            </div>
+                            <h3 class="h5 mb-3" style="font-weight: 600; color: #000;">Étude du dossier</h3>
+                            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                                Notre commission académique examine votre dossier avec attention.
+                            </p>
+                            <div class="d-flex align-items-center gap-2 text-info" style="font-size: 0.875rem; font-weight: 500;">
+                                <i class="bi bi-hourglass-split"></i>
+                                <span>Sous 48h</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
+            <!-- Étape 3 -->
             <div class="col-md-6 col-lg-3">
-                <div class="text-center position-relative" style="z-index: 1;">
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 start-0 bg-primary text-white d-flex align-items-center justify-content-center" 
+                         style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 15px rgba(158,90,89,0.3);">
                         3
                     </div>
-                    <h3 class="h5 mb-3" style="font-weight: 500;">Acceptation</h3>
-                    <p class="text-muted small">Lettre d'admission par email</p>
+                    
+                    <div class="bg-white border-0 shadow-sm p-4 h-100" style="margin-top: 25px; border-radius: 12px;">
+                        <div class="pt-4">
+                            <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 70px; height: 70px;">
+                                <i class="bi bi-envelope-check text-success" style="font-size: 2rem;"></i>
+                            </div>
+                            <h3 class="h5 mb-3" style="font-weight: 600; color: #000;">Notification</h3>
+                            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                                Recevez votre lettre d'admission et les modalités par email.
+                            </p>
+                            <div class="d-flex align-items-center gap-2 text-success" style="font-size: 0.875rem; font-weight: 500;">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>Par email</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
+            <!-- Étape 4 -->
             <div class="col-md-6 col-lg-3">
-                <div class="text-center position-relative" style="z-index: 1;">
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: 300; border: 5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 start-0 bg-primary text-white d-flex align-items-center justify-content-center" 
+                         style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 15px rgba(158,90,89,0.3);">
                         4
                     </div>
-                    <h3 class="h5 mb-3" style="font-weight: 500;">Inscription</h3>
-                    <p class="text-muted small">Finalisez et recevez votre carte</p>
+                    
+                    <div class="bg-white border-0 shadow-sm p-4 h-100" style="margin-top: 25px; border-radius: 12px;">
+                        <div class="pt-4">
+                            <div class="bg-warning bg-opacity-20 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 70px; height: 70px;">
+                                <i class="bi bi-mortarboard-fill text-warning" style="font-size: 2rem;"></i>
+                            </div>
+                            <h3 class="h5 mb-3" style="font-weight: 600; color: #000;">Bienvenue à l'IESC</h3>
+                            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                                Finalisez votre inscription et démarrez votre aventure académique.
+                            </p>
+                            <div class="d-flex align-items-center gap-2 text-warning" style="font-size: 0.875rem; font-weight: 500;">
+                                <i class="bi bi-award-fill"></i>
+                                <span>Carte étudiant</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-5">
-            <a href="{{ route('admission.create') }}" 
-               class="btn btn-primary btn-lg px-5"
-               style="border-radius: 0;">
-                <i class="bi bi-file-earmark-text me-2"></i>
-                Déposer ma candidature
-            </a>
-        </div>
-        
-        <div class="row mt-5">
-            <div class="col-lg-10 mx-auto">
-                <div class="card border bg-light">
-                    <div class="card-body p-4">
-                        <h5 class="text-center mb-4" style="font-weight: 500; font-size: 0.95rem;">
-                            <i class="bi bi-folder-check text-primary me-2"></i>
-                            Documents à préparer
-                        </h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul class="list-unstyled mb-0 small">
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Diplôme du BAC</li>
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Relevé de notes</li>
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Pièce d'identité</li>
-                                </ul>
+        <!-- CTA et Documents -->
+        <div class="row mt-5 g-4">
+            <!-- CTA -->
+            <div class="col-lg-6">
+                <div class="card border-0 h-100" style="background: linear-gradient(135deg, #9e5a59 0%, #7a4544 100%); border-radius: 12px;">
+                    <div class="card-body p-5 text-white text-center">
+                        <i class="bi bi-rocket-takeoff mb-3" style="font-size: 3rem;"></i>
+                        <h3 class="h4 mb-3" style="font-weight: 500;">Prêt à commencer ?</h3>
+                        <p class="mb-4" style="opacity: 0.95;">
+                            Rejoignez des centaines d'étudiants qui ont choisi l'excellence
+                        </p>
+                        <a href="{{ route('admission.create') }}" 
+                           class="btn btn-light btn-lg px-5"
+                           style="border-radius: 50px; font-weight: 600;">
+                            <i class="bi bi-arrow-right-circle me-2"></i>
+                            Je candidate maintenant
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Documents -->
+            <div class="col-lg-6">
+                <div class="card border-0 h-100 shadow-sm" style="border-radius: 12px;">
+                    <div class="card-body p-5">
+                        <h4 class="h5 mb-4 d-flex align-items-center gap-2" style="font-weight: 600;">
+                            <i class="bi bi-folder2-open text-primary" style="font-size: 1.5rem;"></i>
+                            Documents requis
+                        </h4>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light" style="border-radius: 8px;">
+                                    <i class="bi bi-file-earmark-text-fill text-primary" style="font-size: 1.5rem;"></i>
+                                    <div>
+                                        <div class="fw-semibold mb-1">Diplôme du BAC + Relevé de notes</div>
+                                        <small class="text-muted">Copie certifiée conforme</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <ul class="list-unstyled mb-0 small">
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Photo d'identité</li>
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Certificat de naissance</li>
-                                    <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i>Lettre de motivation</li>
-                                </ul>
+                            <div class="col-12">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light" style="border-radius: 8px;">
+                                    <i class="bi bi-person-badge-fill text-primary" style="font-size: 1.5rem;"></i>
+                                    <div>
+                                        <div class="fw-semibold mb-1">Pièce d'identité + Photo</div>
+                                        <small class="text-muted">En cours de validité</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light" style="border-radius: 8px;">
+                                    <i class="bi bi-file-earmark-medical-fill text-primary" style="font-size: 1.5rem;"></i>
+                                    <div>
+                                        <div class="fw-semibold mb-1">Certificat de naissance</div>
+                                        <small class="text-muted">Original ou copie certifiée</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
